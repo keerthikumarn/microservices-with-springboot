@@ -26,7 +26,7 @@ public class StudentService {
 		return stuRepository.save(student);
 	}
 
-	public StudentVO getStudentWithCourse(Long userId) {
+	/*public StudentVO getStudentWithCourse(Long userId) {
 		log.info("Inside StudentService#getStudentWithCourse()");
 		StudentVO stuVO = new StudentVO();
 		Student student = stuRepository.findByRegNo(userId);
@@ -37,6 +37,15 @@ public class StudentService {
 		stuVO.setStudent(student);
 		
 		return stuVO;
-	}
+	}*/
+	
+	public StudentVO getStudentWithCourse(Long userId, String firstName) {
+        Student student = stuRepository.findByRegNoAndFirstName(userId, firstName);
+        Course course = restTemplate.getForObject("http://COURSE-SERVICE/courses/" + student.getCourseId(), Course.class);
+        StudentVO stuVO = new StudentVO();
+        stuVO.setCourse(course);
+        stuVO.setStudent(student);
+        return stuVO;
+    }
 
 }
