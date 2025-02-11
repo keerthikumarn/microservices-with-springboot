@@ -9,4 +9,6 @@ import com.springboot.students.entity.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	public Student findByRegNo(Long regNo);
 
+	public Student findByRegNoAndFirstName(Long regNo, String firstName);
+
 }
